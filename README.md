@@ -306,7 +306,7 @@ kubectl port-forward service/grafana-service 3000:3000
 
 kubectl create secret docker-registry ghcr-secret \
   --docker-server=ghcr.io \
-  --docker-username=Feliciasharon \
+  --docker-username=feliciasharon \
   --docker-password=<secret key> \
   --docker-email=in.felicia.sharon@gmail.com
 

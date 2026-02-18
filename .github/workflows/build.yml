@@ -16,18 +16,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Convert repo owner to lowercase
+      - name: Set lowercase owner
+        run: echo "OWNER=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
+      # Login to GitHub Container Registry
       - name: Log in to GHCR
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
+      # Build API image
       - name: Build API image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/mental-health-app:${{ github.sha }} .
-      
+          docker build \
+            -t ghcr.io/${{ env.OWNER }}/mental-health-mlops-nlp:latest \
+            .
+
+      # Build Airflow image
       - name: Build Airflow image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/airflow-mlops:${{ github.sha }} -f docker/airflow.Dockerfile .
+          docker build \
+            -t ghcr.io/${{ env.OWNER }}/airflow-mlops:latest \
+            -f docker/airflow.Dockerfile \
+            .
 
+      # Push images
       - name: Push images
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/mental-health-app:${{ github.sha }}
-          docker push ghcr.io/${{ github.repository_owner }}/airflow-mlops:${{ github.sha }}
+          docker push ghcr.io/${{ env.OWNER }}/mental-health-mlops-nlp:latest
+          docker push ghcr.io/${{ env.OWNER }}/airflow-mlops:latest
