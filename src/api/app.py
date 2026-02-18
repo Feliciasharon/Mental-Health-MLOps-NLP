@@ -30,10 +30,10 @@ def health():
 
 
 # Load model + embedder once
-#clf = joblib.load("/opt/airflow/mlops/classifier.pkl")
-#embedder = SentenceTransformer("/opt/airflow/mlops/embedder")
-clf = joblib.load("classifier.pkl")
-embedder = SentenceTransformer("embedder")
+clf = joblib.load("/opt/airflow/mlops/classifier.pkl")
+embedder = SentenceTransformer("/opt/airflow/mlops/embedder")
+#clf = joblib.load("classifier.pkl")
+#embedder = SentenceTransformer("embedder")
 
 def save_to_db(text, prediction):
     conn = psycopg2.connect(
