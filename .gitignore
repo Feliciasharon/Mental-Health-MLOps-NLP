@@ -1,0 +1,17 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Models
+embedder/
+models/
+*.pkl
+*.safetensors
+
+# OS
+.DS_Store
+
+# Airflow logs
+logs/
+mlruns/

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mental-health-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mental-health-app
+  template:
+    metadata:
+      labels:
+        app: mental-health-app
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: app
+          image: ghcr.io/feliciasharon/mental-health-mlops-nlp:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
