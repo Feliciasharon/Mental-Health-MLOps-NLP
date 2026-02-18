@@ -7,7 +7,7 @@ __pycache__/
 #embedder/
 models/
 #*.pkl
-*.safetensors
+#*.safetensors
 
 # OS
 .DS_Store
