@@ -32,7 +32,7 @@ jobs:
       - name: Build and Push API Image
         run: |
           docker buildx build \
-            --platform linux/amd64 \
+            --platform linux/amd64, linux/arm64 \
             -t ghcr.io/${OWNER}/mental-health-mlops-nlp:latest \
             -t ghcr.io/${OWNER}/mental-health-mlops-nlp:${{ github.sha }} \
             -f docker/Dockerfile \
@@ -43,7 +43,7 @@ jobs:
       - name: Build and Push Airflow Image
         run: |
           docker buildx build \
-            --platform linux/amd64 \
+            --platform linux/amd64, linux/arm64 \
             -t ghcr.io/${OWNER}/airflow-mlops:latest \
             -t ghcr.io/${OWNER}/airflow-mlops:${{ github.sha }} \
             -f docker/airflow.Dockerfile \
