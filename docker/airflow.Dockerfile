@@ -16,14 +16,18 @@ RUN chown -R airflow: /opt/airflow/mlops
 # Switch back to airflow user
 USER airflow
 
-# Install Python dependencies
+# Install CPU torch FIRST (from PyTorch index)
+RUN pip install --no-cache-dir \
+    torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+
+# Then install everything else from normal PyPI
 RUN pip install --no-cache-dir \
     psycopg2-binary \
     pandas \
     numpy \
     scikit-learn==1.8.0 \
-    torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu \
     sentence-transformers==5.2.2 \
     joblib
+
 
 ENV PYTHONPATH="/opt/airflow/mlops"
