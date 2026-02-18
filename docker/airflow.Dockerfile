@@ -23,7 +23,6 @@ RUN pip install --no-cache-dir \
     numpy \
     scikit-learn==1.8.0 \
     sentence-transformers==5.2.2 \
-    torch \
     joblib
 
 ENV PYTHONPATH="/opt/airflow/mlops"
