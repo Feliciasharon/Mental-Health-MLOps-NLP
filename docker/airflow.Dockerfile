@@ -22,6 +22,7 @@ RUN pip install --no-cache-dir \
     pandas \
     numpy \
     scikit-learn==1.8.0 \
+    torch==2.4.1+cpu --index-url https://download.pytorch.org/whl/cpu \
     sentence-transformers==5.2.2 \
     joblib
 
