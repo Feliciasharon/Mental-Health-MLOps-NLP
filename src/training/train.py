@@ -69,13 +69,14 @@ if len(df) == 0:
     print("No data available for retraining.")
     exit()
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+'''BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 MODEL_PATH = os.path.join(BASE_DIR, "classifier.pkl")
 EMBEDDER_PATH = os.path.join(BASE_DIR, "embedder")
 
-embedder = SentenceTransformer(EMBEDDER_PATH)
+embedder = SentenceTransformer(EMBEDDER_PATH)'''
 
-#embedder = SentenceTransformer("/opt/airflow/mlops/embedder")
+embedder = SentenceTransformer("/opt/airflow/mlops/embedder")
+BASE_DIR = "/opt/airflow/mlops"
 
 X = embedder.encode(df["text"].tolist())
 y = df["prediction"].tolist()

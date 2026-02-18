@@ -28,16 +28,16 @@ REQUEST_LATENCY = Histogram(
 def health():
     return {"status": "ok"}
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+'''BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 MODEL_PATH = os.path.join(BASE_DIR, "classifier.pkl")
 EMBEDDER_PATH = os.path.join(BASE_DIR, "embedder")
 clf = joblib.load(MODEL_PATH)
-embedder = SentenceTransformer(EMBEDDER_PATH)
+embedder = SentenceTransformer(EMBEDDER_PATH)'''
 # Load model + embedder once
 #clf = joblib.load("/opt/airflow/mlops/classifier.pkl")
 #embedder = SentenceTransformer("/opt/airflow/mlops/embedder")
-#clf = joblib.load("classifier.pkl")
-#embedder = SentenceTransformer("embedder")
+clf = joblib.load("classifier.pkl")
+embedder = SentenceTransformer("embedder")
 
 def save_to_db(text, prediction):
     conn = psycopg2.connect(
