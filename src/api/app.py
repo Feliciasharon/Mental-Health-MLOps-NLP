@@ -7,7 +7,7 @@ import psycopg2
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
 from fastapi import Response
 import time
-
+import os
 
 
 app = FastAPI()
@@ -28,10 +28,14 @@ REQUEST_LATENCY = Histogram(
 def health():
     return {"status": "ok"}
 
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+MODEL_PATH = os.path.join(BASE_DIR, "classifier.pkl")
+EMBEDDER_PATH = os.path.join(BASE_DIR, "embedder")
+clf = joblib.load(MODEL_PATH)
+embedder = SentenceTransformer(EMBEDDER_PATH)
 # Load model + embedder once
-clf = joblib.load("/opt/airflow/mlops/classifier.pkl")
-embedder = SentenceTransformer("/opt/airflow/mlops/embedder")
+#clf = joblib.load("/opt/airflow/mlops/classifier.pkl")
+#embedder = SentenceTransformer("/opt/airflow/mlops/embedder")
 #clf = joblib.load("classifier.pkl")
 #embedder = SentenceTransformer("embedder")
 

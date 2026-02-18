@@ -69,7 +69,13 @@ if len(df) == 0:
     print("No data available for retraining.")
     exit()
 
-embedder = SentenceTransformer("/opt/airflow/mlops/embedder")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+MODEL_PATH = os.path.join(BASE_DIR, "classifier.pkl")
+EMBEDDER_PATH = os.path.join(BASE_DIR, "embedder")
+
+embedder = SentenceTransformer(EMBEDDER_PATH)
+
+#embedder = SentenceTransformer("/opt/airflow/mlops/embedder")
 
 X = embedder.encode(df["text"].tolist())
 y = df["prediction"].tolist()
@@ -85,13 +91,13 @@ if len(unique_classes) < 2:
 clf.fit(X, y)
 
 timestamp = datetime.utcnow().strftime("%Y%m%d%H%M")
-model_path = f"/opt/airflow/mlops/models/classifier_{timestamp}.pkl"
+model_path = f"{BASE_DIR}/models/classifier_{timestamp}.pkl"
 
-os.makedirs("/opt/airflow/mlops/models", exist_ok=True)
+os.makedirs(f"{BASE_DIR}/models", exist_ok=True)
 joblib.dump(clf, model_path)
 
 # Update latest model
-joblib.dump(clf, "/opt/airflow/mlops/classifier.pkl")
+joblib.dump(clf, f"{BASE_DIR}/classifier.pkl")
 
 print(f"Model saved at {model_path}")
 
