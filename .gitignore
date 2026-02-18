@@ -4,9 +4,9 @@ __pycache__/
 *.pyc
 
 # Models
-embedder/
+#embedder/
 models/
-*.pkl
+#*.pkl
 *.safetensors
 
 # OS
